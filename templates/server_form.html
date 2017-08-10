@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head> 
+{% load staticfiles %}
+
+ <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href='{%static "css/app.css" %}'/>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" >
+
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">chat</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <ul class="nav navbar-nav navbar-right">
+     
+	  <li> {% if user.is_authenticated %}
+	  <a href="#">  {{ user.username }}</a></li>
+	  
+	 
+	  
+      
+     <li>  <a href="{% url 'logout' %}"> logout</a></li>
+	 <li><a href="/functions">Functions <i class="fa fa-user-plus"></i></a></li>
+       {% else %}
+	 
+	   <li><a href="/register">Signup <i class="fa fa-user-plus"></i></a></li>
+       <li><a href="{% url 'login' %}">Signin <i class="fa fa-user"></i></a></li>
+       {% endif %}
+	   
+	   </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+<div class="col-md-6 col-md-offset-3">
+
+<form method="post" class="form-horizontal" >{% csrf_token %}
+<h1>Enter class Details</h1>
+    
+   <div class="form-group"><label  class="col-md-3">Title:</label><div class="col-md-9"> {{ form.Title}}</div></div>
+   <div class="form-group"><label class="col-md-3">Subject:</label><div class="col-md-9">{{ form.Subject}}</div></div>
+   <div class="form-group"><label class="col-md-3">Date:</label><div class="col-md-9">{{ form.date}}</div></div>
+   <div class="form-group"><label class="col-md-3">Schedule:</label><div class="col-md-4">{{ form.From}}</div><div class="col-md-4">{{ form.to}}</div></div>
+   <div class="form-group"><label class="col-md-3">Instructor:</label><div class="col-md-9">{{ form.instructor}}</div></div>
+   <div class="form-group"><label class="col-md-3">Description:</label><div class="col-md-9">{{ form.description}}</div></div>
+    <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+</form>
+</div>
+</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </body>
+
+</html>
+
+ 

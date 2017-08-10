@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Chat app</title>
+ {% load staticfiles %}
+ <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href='{%static "css/app.css" %}'/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+</head>
+<body >
+<nav class="navbar navbar-default navbar-fixed-top">
+
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand"  href="#">chat</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <ul class="nav navbar-nav navbar-right">
+     
+	  <li> {% if user.is_authenticated %}
+      <a href="#">  {{ user.username }}</a></li>
+     <li>  <a href="{% url 'logout' %}"> logout</a></li>
+       {% else %}
+	   <li><a href="/register">Signup <i class="fa fa-user-plus"></i></a></li>
+       <li><a href="{% url 'login' %}">Login <i class="fa fa-user"></i></a></li>
+       {% endif %}
+	   
+	   </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+	
+<div class="container">
+<div class="row">
+{% if user.profile.utype == '1'%}
+<div class="col-md-12">
+<div class="wrap-functions">
+<div class="col-md-4 text-center">
+<a href="/create" class="btn btn-primary btn-lg">Create Class </a>
+</div>
+<div class="col-md-4 text-center">
+<a href="/Ateacher" class="btn btn-primary btn-lg">Change Profile  </a></a>
+</div>
+<div class="col-md-4 text-center">
+<a href="/Ainvites" class="btn btn-primary btn-lg">Send Invites </a>
+</div>
+</div>
+</div>
+<div class="col-md-12">
+<div class="row">
+<br>
+<div class="text-center"><h1>Upcoming Classes</h1></div>
+<div class="wrap-body">
+{% for server in object_list %}
+<div class="col-md-6">
+
+
+
+<div class="block-tile">
+<a class="del" href='{% url "server_delete" server.id %}'><i class="fa fa-remove"></i></a>
+
+<a href='{% url "home" server.id %}'class="link1">
+
+<div class="classname">
+<h5>{{ server.Title }}</h5>
+</div>
+<div class="info">
+<div class="conduct">
+<h4><b>Conducted By: </b>{{ server.instructor }}</h4>
+<p><b>Schedule: </b> On {{ server.date }} from {{ server.From }} to {{ server.to }}</p>
+</div>
+<div class="desc">
+<p>{{ server.description|truncatechars:150}}</p>
+</div>
+</div>
+</a>
+</div>
+
+</div>
+
+<!-- end of col6 -->
+   {% empty %}
+    <li style="color:red">No Classes</li>
+    {% endfor %} 
+</div>
+
+</div>
+</div>
+{% endif %}
+
+</div>
+</div>
+<div class="clearfix"></div>
+		<br>
+	<br>
+{% if user.profile.utype == '3'%}
+<div class="col-md-12">
+<div class="wrap-functions">
+<div class="col-md-4 text-center">
+<a href="/create1" class="btn btn-primary btn-lg">Attend Class </a>
+</div>
+<div class="col-md-4 text-center">
+<a href="/Ateacher1" class="btn btn-primary btn-lg">Invite Student </a></a>
+</div>
+<div class="col-md-4 text-center">
+<a href="/Ainvites1" class="btn btn-primary btn-lg">Pay for Class </a>
+</div>
+</div>
+</div>
+<div class="col-md-12">
+<div class="row">
+<br>
+<div class="text-center"><h1>Upcoming Classes</h1></div>
+<div class="wrap-body">
+{% for server in object_list %}
+<div class="col-md-6">
+
+
+
+<div class="block-tile">
+
+
+<a href='{% url "home" server.id %}'class="link1">
+
+<div class="classname">
+<h5>{{ server.Title }}</h5>
+</div>
+<div class="info">
+<div class="conduct">
+<h4><b>Conducted By: </b>{{ server.instructor }}</h4>
+<p><b>Schedule: </b> On {{ server.date }} from {{ server.From }} to {{ server.to }}</p>
+</div>
+<div class="desc">
+<p>{{ server.description|truncatechars:150}}</p>
+</div>
+</div>
+</a>
+</div>
+
+</div>
+
+<!-- end of col6 -->
+   {% empty %}
+    <li style="color:red">No Classes</li>
+    {% endfor %} 
+</div>
+
+</div>
+</div>
+{% endif %}
+
+</div>
+</div>
+<div class="clearfix"></div>
+		<br>
+	<br>
+	{% if user.profile.utype == '2'%}
+<div class="col-md-12">
+<div class="wrap-functions">
+<div class="col-md-4 text-center">
+<a href="/create12" class="btn btn-primary btn-lg">Send Invites </a>
+</div>
+<div class="col-md-4 text-center">
+<a href="/Ateacher12" class="btn btn-primary btn-lg">Request to change class </a></a>
+</div>
+<div class="col-md-4 text-center">
+<a href="/Ainvites12" class="btn btn-primary btn-lg">Add Student </a>
+</div>
+</div>
+</div>
+<div class="col-md-12">
+<div class="row">
+<br>
+<div class="text-center"><h1>Upcoming Classes</h1></div>
+<div class="wrap-body">
+{% for server in object_list %}
+<div class="col-md-6">
+
+
+
+<div class="block-tile">
+
+
+<a href='{% url "home" server.id %}'class="link1">
+
+<div class="classname">
+<h5>{{ server.Title }}</h5>
+</div>
+<div class="info">
+<div class="conduct">
+<h4><b>Conducted By: </b>{{ server.instructor }}</h4>
+<p><b>Schedule: </b> On {{ server.date }} from {{ server.From }} to {{ server.to }}</p>
+</div>
+<div class="desc">
+<p>{{ server.description|truncatechars:150}}</p>
+</div>
+</div>
+</a>
+</div>
+
+</div>
+
+<!-- end of col6 -->
+   {% empty %}
+    <li style="color:red">No Classes</li>
+    {% endfor %} 
+</div>
+
+</div>
+</div>
+{% endif %}
+
+</div>
+</div>
+<div class="clearfix"></div>
+		<br>
+	<br>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script>
+
+  $("input,select").addClass("form-control");
+  
+
+   </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </body>
+
+</html>

@@ -1,0 +1,19 @@
+</ul> 
+{% for obj in chat %}
+<ul>
+    <li style="color:red"><a href="{% url "home" obj.id %}">{{ obj.Title }}</a>
+     
+   </ul>
+   {% empty %}
+    <li style="color:red">No Classes</li>
+    {% endfor %}
+	
+	<ul>
+    {% for obj in users %}
+	    
+    <li>
+	    <input type="checkbox" value="{{obj.email}}">{{obj.username}}</input>
+	
+    </li>
+    {% endfor %}
+	</ul>

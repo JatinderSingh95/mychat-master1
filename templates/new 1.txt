@@ -1,0 +1,31 @@
+#include<stdio.h>
+
+int main(){
+   
+   
+    int a, b, c;
+    float e;
+    printf("unit coversion calculator\n");
+    printf("1 . mass\n");
+    printf("2 . time\n");
+    printf("3 . speed\n");
+    printf("4 . currency\n");
+     printf("enter selection: \n");
+     scanf("%d", &a);
+     
+     if( a == 1)
+     
+         printf("mass conversion\n"  "1 . kg = lbs\n" "2 . lbs = kg\n");
+         printf("enter selection: \n");
+         scanf("%d", &b);
+     if( b == 1)
+         printf("enter number to kilogram: \n");
+         scanf("%d", &c);
+         e=(c*2.20);
+         printf("%f",e);
+         
+         
+    return 0;
+}
+
+gdsa006@gmail.com,taajinder95@gmail.com

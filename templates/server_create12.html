@@ -1,0 +1,9 @@
+<ul>
+    {% for user in object_list %}
+	    
+    <li>
+	    <input type="checkbox" value="{{user.email}}">{{user}}</input>
+	
+    </li>
+    {% endfor %}
+	</ul>
