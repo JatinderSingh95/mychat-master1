@@ -53,7 +53,7 @@
     
    <div class="form-group"><label  class="col-md-3">Title:</label><div class="col-md-9"> {{ form.Title}}</div></div>
    <div class="form-group"><label class="col-md-3">Subject:</label><div class="col-md-9">{{ form.Subject}}</div></div>
-   <div class="form-group"><label class="col-md-3">Date:</label><div class="col-md-9">{{ form.date}}</div></div>
+   <div class="form-group"><label class="col-md-3">Date:</label><div class="col-md-9">{{ form.date}}{{ form.date.errors}}</div></div>
    <div class="form-group"><label class="col-md-3">Schedule:</label><div class="col-md-4">{{ form.From}}</div><div class="col-md-4">{{ form.to}}</div></div>
    <div class="form-group"><label class="col-md-3">Instructor:</label><div class="col-md-9">{{ form.instructor}}</div></div>
    <div class="form-group"><label class="col-md-3">Description:</label><div class="col-md-9">{{ form.description}}</div></div>

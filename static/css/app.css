@@ -15,6 +15,10 @@ body {
 .all-frm label{
 	color:#333;
 }
+.spacer{
+	height:10px;
+	float:left
+}
 #cnt-blk{
 	border:solid 1px #e4e4e4;
 	float:left;
@@ -125,6 +129,9 @@ nav li.active a {
 	padding:30px 0px;
 	
 }
+.wrap-functions div a{
+	width:100%
+}
 .wrap-body{
 	float:left;
 	width:100%;
@@ -176,15 +183,36 @@ border:solid 1px yellow;
 	float:left;
 	width:100%;
 	background:white;
-	padding:25px 5px;
+	padding:0px 5px;
+}
+.wrap-body .block-tile .user{
+	float:left;
+	width:100%;
+	background:white;
+	padding: 15px;
+	
 }
 .wrap-body .block-tile .info .conduct{
 	float:left;
 	width:100%;
-	padding:0px 5px;
+	padding:25px 5px;
+	border-bottom:solid 1px #ccc;
 }
 .wrap-body .block-tile .info .desc{
 	float:left;
 	width:100%;
-	padding:0px 5px;
+	padding:5px 5px;
+}
+
+
+
+.auth h2{
+	float:left;
+	width:100%;
+	margin:0px 0px 15px ;
+	text-align:center;
+	color:white;
+	background:lightblue;
+	padding:10px 0;
+	
 }

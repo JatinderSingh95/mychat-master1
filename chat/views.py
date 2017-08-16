@@ -173,9 +173,9 @@ def server_create12(request, template_name='forn.html'):
 	
 def Function(request, template_name='rest.html'):
 	chat = Createclass.objects.all()
-	
+	users = User.objects.all()
 	data['object_list'] = chat
-	return render(request, template_name, data)	
+	return render(request, template_name,{'chat': chat,'users': users})	
 	
 def Ateacher1(request, template_name='update.html'):
 
@@ -194,6 +194,7 @@ def Ateacher12(request, template_name='server_create12.html'):
 			
 def server_update(request, pk, template_name='Addrest.html'):
     users = get_object_or_404(User, pk=pk) 
+   
 	
     form = EditProfileform(request.POST or None, instance=users)
     if form.is_valid():
@@ -201,8 +202,8 @@ def server_update(request, pk, template_name='Addrest.html'):
 		#user.refresh_from_db()  # load the profile instance created by the signal
         user.profile.utype = form.cleaned_data.get('utype')
         user.save()
-        return redirect('Ateacher1')
-    return render(request, template_name, {'form':form})	
+        return redirect('Function')
+    return render(request, template_name, {'form':form,'user':users})	
 		   
 def Home(request,pk,template_name='home.html'):
     createclass = get_object_or_404(Createclass, pk=pk)

@@ -42,49 +42,109 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel"
+ aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Delete Parmanently</h4>
+        </div>
+        <div class="modal-body" style="height: 75px">
+            <p>Are you sure about this ?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <a  id="del" class="btn btn-danger"  id="confirm-delete-ok">Ok
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">User List</h4>
+      </div>
+      <div class="modal-body">
+	  <select onchange="location=this.value">
+	    <option>
+		<b>Select User</b>
+		</option>    
+			{% for obj in users %}
+			
+	  <option value="{% url 'user_edit' obj.id %}">{{obj.username}}
+---
+		{% if obj.profile.utype == '1'%} 
+             		Admin 
+		{% endif %}
+        {% if obj.profile.utype == '2'%} 
+             		Teacher 
+		{% endif %}
+		{% if obj.profile.utype == '3'%} 
+             		Student 
+		{% endif %}
+		</option> 
+{% endfor %}
+</select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 	
 <div class="container">
 <div class="row">
 {% if user.profile.utype == '1'%}
 <div class="col-md-12">
 <div class="wrap-functions">
-<div class="col-md-4 text-center">
-<a href="/create" class="btn btn-primary btn-lg">Create Class </a>
+<div class="col-md-4 col-xs-12 text-center">
+<a href="/create" class="btn btn-primary btn-lg" style="width:100%">Create Class </a>
 </div>
-<div class="col-md-4 text-center">
-<a href="/Ateacher" class="btn btn-primary btn-lg">Change Profile  </a></a>
+<div class="spacer visible-xs" >&nbsp;</div>
+<div class="col-md-4 col-xs-12 text-center">
+<a href="#" class="btn btn-primary btn-lg" style="width:100%" data-toggle="modal" data-target="#myModal">Change Profile  </a></a>
 </div>
-<div class="col-md-4 text-center">
-<a href="/Ainvites" class="btn btn-primary btn-lg">Send Invites </a>
+<div class="spacer visible-xs" >&nbsp;</div>
+<div class="col-md-4 col-xs-12 text-center">
+<a href="/Ainvites" class="btn btn-primary btn-lg" style="width:100%" >Send Invites </a>
 </div>
 </div>
 </div>
+<div class="clearfix"></div> 
 <div class="col-md-12">
 <div class="row">
 <br>
 <div class="text-center"><h1>Upcoming Classes</h1></div>
 <div class="wrap-body">
-{% for server in object_list %}
+{% for obj in chat %}
 <div class="col-md-6">
 
 
 
 <div class="block-tile">
-<a class="del" href='{% url "server_delete" server.id %}'><i class="fa fa-remove"></i></a>
+<a class="del" data-id= {{obj.id }}  data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-remove"></i></a>
 
-<a href='{% url "home" server.id %}'class="link1">
+<a href='{% url "home" obj.id %}'class="link1">
 
 <div class="classname">
-<h5>{{ server.Title }}</h5>
+<h5>{{ obj.Title }}</h5>
 </div>
 <div class="info">
 <div class="conduct">
-<h4><b>Conducted By: </b>{{ server.instructor }}</h4>
-<p><b>Schedule: </b> On {{ server.date }} from {{ server.From }} to {{ server.to }}</p>
+<h4><b>Conducted By: </b>{{ obj.instructor }}</h4>
+<p><b>Schedule: </b> On {{ obj.date }} from {{ obj.From }} to {{ obj.to }}</p>
 </div>
 <div class="desc">
-<p>{{ server.description|truncatechars:150}}</p>
+<p>{{ obj.description|truncatechars:150}}</p>
 </div>
 </div>
 </a>
@@ -102,21 +162,22 @@
 </div>
 {% endif %}
 
-</div>
-</div>
+
 <div class="clearfix"></div>
 		<br>
 	<br>
 {% if user.profile.utype == '3'%}
 <div class="col-md-12">
 <div class="wrap-functions">
-<div class="col-md-4 text-center">
+<div class="col-md-4 col-xs-12 text-center">
 <a href="/create1" class="btn btn-primary btn-lg">Attend Class </a>
 </div>
-<div class="col-md-4 text-center">
+<div class="spacer visible-xs" >&nbsp;</div>
+<div class="col-md-4 col-xs-12 text-center">
 <a href="/Ateacher1" class="btn btn-primary btn-lg">Invite Student </a></a>
 </div>
-<div class="col-md-4 text-center">
+<div class="spacer visible-xs" >&nbsp;</div>
+<div class="col-md-4 col-xs-12 text-center">
 <a href="/Ainvites1" class="btn btn-primary btn-lg">Pay for Class </a>
 </div>
 </div>
@@ -126,26 +187,26 @@
 <br>
 <div class="text-center"><h1>Upcoming Classes</h1></div>
 <div class="wrap-body">
-{% for server in object_list %}
+{% for obj in chat %}
 <div class="col-md-6">
 
 
 
 <div class="block-tile">
+<a class="del" href='{% url "server_delete" obj.id %}'><i class="fa fa-remove"></i></a>
 
-
-<a href='{% url "home" server.id %}'class="link1">
+<a href='{% url "home" obj.id %}'class="link1">
 
 <div class="classname">
-<h5>{{ server.Title }}</h5>
+<h5>{{ obj.Title }}</h5>
 </div>
 <div class="info">
 <div class="conduct">
-<h4><b>Conducted By: </b>{{ server.instructor }}</h4>
-<p><b>Schedule: </b> On {{ server.date }} from {{ server.From }} to {{ server.to }}</p>
+<h4><b>Conducted By: </b>{{ obj.instructor }}</h4>
+<p><b>Schedule: </b> On {{ obj.date }} from {{ obj.From }} to {{ obj.to }}</p>
 </div>
 <div class="desc">
-<p>{{ server.description|truncatechars:150}}</p>
+<p>{{ obj.description|truncatechars:150}}</p>
 </div>
 </div>
 </a>
@@ -171,13 +232,15 @@
 	{% if user.profile.utype == '2'%}
 <div class="col-md-12">
 <div class="wrap-functions">
-<div class="col-md-4 text-center">
+<div class="col-md-4 col-xs-12 text-center">
 <a href="/create12" class="btn btn-primary btn-lg">Send Invites </a>
 </div>
-<div class="col-md-4 text-center">
+<div class="spacer visible-xs" >&nbsp;</div>
+<div class="col-md-4 col-xs-12 text-center">
 <a href="/Ateacher12" class="btn btn-primary btn-lg">Request to change class </a></a>
 </div>
-<div class="col-md-4 text-center">
+<div class="spacer visible-xs" >&nbsp;</div>
+<div class="col-md-4 col-xs-12 text-center">
 <a href="/Ainvites12" class="btn btn-primary btn-lg">Add Student </a>
 </div>
 </div>
@@ -187,26 +250,26 @@
 <br>
 <div class="text-center"><h1>Upcoming Classes</h1></div>
 <div class="wrap-body">
-{% for server in object_list %}
+{% for obj in chat %}
 <div class="col-md-6">
 
 
 
 <div class="block-tile">
+<a class="del" href='{% url "server_delete" obj.id %}'><i class="fa fa-remove"></i></a>
 
-
-<a href='{% url "home" server.id %}'class="link1">
+<a href='{% url "home" obj.id %}'class="link1">
 
 <div class="classname">
-<h5>{{ server.Title }}</h5>
+<h5>{{ obj.Title }}</h5>
 </div>
 <div class="info">
 <div class="conduct">
-<h4><b>Conducted By: </b>{{ server.instructor }}</h4>
-<p><b>Schedule: </b> On {{ server.date }} from {{ server.From }} to {{ server.to }}</p>
+<h4><b>Conducted By: </b>{{ obj.instructor }}</h4>
+<p><b>Schedule: </b> On {{ obj.date }} from {{ obj.From }} to {{ obj.to }}</p>
 </div>
 <div class="desc">
-<p>{{ server.description|truncatechars:150}}</p>
+<p>{{ obj.description|truncatechars:150}}</p>
 </div>
 </div>
 </a>
@@ -226,6 +289,8 @@
 
 </div>
 </div>
+</div>
+</div>
 <div class="clearfix"></div>
 		<br>
 	<br>
@@ -237,9 +302,19 @@
   
 
    </script>
+   
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(function () {
+        $(".del").click(function () {
+            var my_id_value = $(this).data('id');
+			
+            $("#del").attr("href","/delete/"+ my_id_value);
+        })
+    });
+</script>
  </body>
 
 </html>

@@ -1,5 +1,12 @@
 
-<form method="post">{% csrf_token %}
-    Are you sure you want to delete "{{ object }}" ?
-    <input type="submit" value="Submit" />
+<form id="frm1" method="post">{% csrf_token %}
+  
+    
 </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+     $("#frm1").submit();
+});
+
+</script>

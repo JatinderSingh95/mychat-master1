@@ -79,7 +79,14 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username','password1','email')
+        widgets = {
+		    'first_name': forms.TextInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Name'})
+	        ,'username': forms.TextInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Username'})
+            ,'password1': forms.PasswordInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Password1'})
+            ,'password2': forms.PasswordInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Password2'})
+		    ,'email': forms.TextInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Email'})}
+        fields = ('username','first_name','password1','password2','email')
+			
 		
 #class Profile(forms.ModelForm):
  #   class Meta:
@@ -96,7 +103,7 @@ def save(self, commit=True):
         return user	
 	
 class EditProfileform(UserChangeForm):
-    utype = forms.CharField(max_length=30, required=False)
+    utype = forms.CharField(max_length=30, required=False,widget=forms.HiddenInput())
 
     class Meta:
         model =User
