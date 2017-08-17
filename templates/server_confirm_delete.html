@@ -1,12 +1,18 @@
+<html style="visibility:hidden">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
 
+window.onload = function(event) {
+    event.stopPropagation(true);
+     $("#frm1").submit();
+};
+</script>
+</head>
+<body>
 <form id="frm1" method="post">{% csrf_token %}
   
     
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-     $("#frm1").submit();
-});
-
-</script>
+</body>
+</html>

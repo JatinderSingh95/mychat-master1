@@ -1,9 +1,22 @@
 
 {% for obj in chat %}
     {% if obj.user == request.user %}
-        <li class="text-right list-group-item">{{ obj.message }}<br> {{ obj.user}}<br>{{obj.created}}</li>
+	
+        <li class="text-right list-group-item"><div class="block" style="float:right">
+            <div class="circle">
+                <p>{{ obj.user|make_list|first}}</p>
+            </div>
+        </div><div style="float:right; width:100%;">{{ obj.message }}</div><br><br>{{obj.created}}</li>
     {% else %}
-        <li class="text-left list-group-item"><img class="img-circle" src="http://static-23.sinclairstoryline.com/resources/media/d368a1cb-f6af-4a04-83d0-ebc66e984ab2-large16x9_BIOPIC.jpg" width="50" height="30">{{ obj.user }}<br>{{obj.message}}{{ obj.Image}} <br>{{ obj.created }}</li>
+        <li class="text-left list-group-item">
+		<div class="block">
+            <div class="circle">
+                <p>{{ obj.user|make_list|first}}</p>
+            </div>
+        </div>
+
+		
+		<h4>  &nbsp;{{ obj.user}}</h4>{{obj.message}}{{ obj.Image}} <br>{{ obj.created }}</li>
     {% endif %}
 {% empty %}
     <li class="text-right list-group-item">No messages yet!</li>
