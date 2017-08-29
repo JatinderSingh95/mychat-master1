@@ -1,6 +1,8 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
  <title>Chat app</title>
  {% load staticfiles %}
  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
@@ -55,7 +57,8 @@
  <div class="col-md-9">
   <select multiple class="form-control" name="class">
    {% for obj in chat %} 
-     <option value="http://127.0.0.1:8000{% url 'home'  obj.id %}">{{obj.Title}}</option>
+   
+     <option value="http://jatindermsite.cloudapp.net{% url 'home'  obj.id %}">{{obj.Title}}</option>
    {% empty %}
     <li style="color:red">No Classes</li>
     {% endfor %}
@@ -72,6 +75,24 @@
 	</select>
 	</div>
 	</div>
+	
+	
+	
+	<div class="form-group">	
+ <label  class="col-md-3">Description:</label>
+ <div class="col-md-9">
+ 
+  <input type="text" name="class1" class="form-control">
+  <br>
+	</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
 	 <div class="form-group">
 	 <label  class="col-md-3">Subject:</label>
  <div class="col-md-9">

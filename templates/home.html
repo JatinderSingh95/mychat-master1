@@ -3,6 +3,8 @@
 <html>
 
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chat Panel</title>
 
     <link rel="stylesheet" href="{% static 'chat.css' %}">
@@ -24,7 +26,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">chat</a>
+      <a class="navbar-brand" href="/">chat</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,16 +50,30 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<section id="banner">
+<section id="banner" style="background:url('/media/{{object.Image}}');background-size:contain;max-width:100%;background-position:center ">
    <div class="container">
    <div class="row">
 <div class="wrap main">
+
+
+
+<div class="col-md-6">
+<div class="overl">
+
+
+
+
  <h1><b>{{object.Title}}</b></h1>
 {{object.description}}
 	<h4> Conducted by </h4> {{object.instructor}}
-	<h4> Date </h4> {{object.date}}
+	<h4> Date </h4> {{object.date }} {{tdate}}
 	<h4> Timings </h4> {{object.From}} -
    	{{object.to}}
+	</div>
+	<input id="frm" type="hidden" value={{object.From}}>
+	<input id="frm12" type="hidden" value={{object.to}}>
+   </div>
+
    </div>
    
    </div>
@@ -66,7 +82,8 @@
 
 
 
-
+    
+    
    <section>
       <div class="container">
    <div class="row">
@@ -75,7 +92,13 @@
         
         <div id="msg-list-div" class="panel-body">
             <ul id="msg-list" class="list-group">
-                
+               
+
+
+
+
+
+
                 <script>
                     var chatlist = document.getElementById('msg-list-div');
                     chatlist.scrollTop = chatlist.scrollHeight;
@@ -83,22 +106,96 @@
             </ul>
         </div>
     </div>
+{% now "f A" as todays_time %}
+	
+	{% now "Y-m-d" as todays_date %} 
+	
+{% if object.date == todays_date and object.From <= todays_time and object.to > todays_time%}
+  
 
     <form id="chat-form" method="post" action="/post/" enctype="multipart/form-data">{% csrf_token %}
         <div id="chat-bottom" class="input-group">
-            <input type="text" id="chat-msg" name="chat-msg" class="form-control"/>
+            <input type="text" id="chat-msg" name="chat-msg" class="form-control chat-msg"/>
            <!-- <input type="file" id="chat-file" name="chat-file" class="form-control"/>-->
 			<span class="input-group-btn">
                 <input class="btn btn-default" id="send" type="submit" value="Send"/>
             </span>
         </div>
     </form>
+	{% endif %}
 	</div>
 	</div>
 	</div>
 </section>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{% static 'chat.js' %}"></script>
+<script>
+
+function dis(){
+alert('qwerty');
+var pageURL = $(location).attr("href");
+			var p = /.+\/([^\/]+)/;
+var match = p.exec(pageURL)
+var q=$('.cancel').attr('id');
+
+if(match[1]==q){
+$('#chat-form').hide();
+$('.chat-msg').attr('id','chatmsg');
+}
+}
+
+			
+
+</script>
+<script>
+
+var v = $('#frm').val().split(':');
+var q = $('#frm12').val().split(':');
+var q1=(parseInt(q[0]));
+var v1=(parseInt(v[0]));
+
+$(document).ready(function(){
+
+refreshAt(v1,v[1],0);
+refreshAt1(q1,q[1],0);
+
+});
+function refreshAt(hours, minutes, seconds) {
+    var now = new Date();
+    var then = new Date();
+
+    if(now.getHours() > hours ||
+       (now.getHours() == hours && now.getMinutes() > minutes) ||
+        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
+        then.setDate(now.getDate() + 1);
+    }
+    then.setHours(hours);
+    then.setMinutes(minutes);
+    then.setSeconds(seconds);
+
+    var timeout = (then.getTime() - now.getTime());
+    setTimeout(function() { window.location.reload(true); }, timeout);
+}
+function refreshAt1(hours, minutes, seconds) {
+    var now = new Date();
+    var then = new Date();
+
+    if(now.getHours() > hours ||
+       (now.getHours() == hours && now.getMinutes() > minutes) ||
+        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
+        then.setDate(now.getDate() + 1);
+    }
+    then.setHours(hours);
+    then.setMinutes(minutes);
+    then.setSeconds(seconds);
+
+    var timeout = (then.getTime() - now.getTime());
+    setTimeout(function() { window.location.reload(true); }, timeout);
+}
+
+</script>
 </body>
 </html>

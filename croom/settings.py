@@ -25,7 +25,7 @@ SECRET_KEY = '!pz3$ruf=igl!#g1&y^%ev^h91)d^33xax=w**0*xp#q4^-l@$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['jatindermsite.cloudapp.net','127.0.0.1']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'chat',
 	'widget_tweaks',
+	'social_django',
 	
 ]
 
@@ -54,6 +55,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'croom.urls'
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -65,6 +70,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+				'social_django.context_processors.backends', 
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -124,17 +131,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-STATIC_URL =  '/static/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='1029532763369-hb1e6evu6skkrmbvmk5m3hcqtlv4jksb.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET ='p0HLD4si-0lCgA-zEWVaDKfs'
+STATIC_URL =  '/mychat-master1/static/'
 MEDIA_URL = '/media/'
 #STATIC_ROOT = os.path.join(BASE_DIR,'static','static_root')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR,"static/"),
     #'/var/www/static/',
 ]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static")
-MEDIA_ROOT = os.path.join(BASE_DIR,'mychat-master/media')
-LOGIN_REDIRECT_URL = 'server_list'
+STATIC_ROOT ="/home/azureuser/static/"
+MEDIA_ROOT = os.path.join(BASE_DIR,'croom/media')
+LOGIN_REDIRECT_URL ='http://jatindermsite.cloudapp.net' 
 

@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import send_mail, BadHeaderError, EmailMultiAlternatives
 from chat.form import ContactForm
 from .models import Chat
 from django import forms
@@ -17,19 +17,24 @@ from django.contrib.auth.models import User
 from chat.form import SignUpForm, UserChangeForm, EditProfileform
 from datetime import date
 import ntpath
-#ProfileForm
+from django.template import loader
+from django.template.loader import render_to_string
+from datetime import datetime
+
+
+
 data={}
 data1={}
 abc= {}
 abc1= {}
 
 today = date.today()
-#pay_period={'2017-07-28'}
-#start_date={'2017-07-28'}
+
 
 def SubscriptionView(request):
     users = User.objects.all()
-    chat = Createclass.objects.all()
+    chat = Createclass.objects.order_by('-id') 
+    
 	
     
 	
@@ -37,12 +42,22 @@ def SubscriptionView(request):
     if form.is_valid():
 	
 	form_Class = request.POST.getlist('class')
+	text_Class = request.POST.getlist('class1')
+	
+	
+	html_message = loader.render_to_string(
+            'htm_file.html',
+            {
+                'form_class': form_Class,
+                'text_class':  text_Class                  
+            }
+        ) 
 	
 	emailto = request.POST.getlist('email_to')
 	#desc = request.POST.getlist('discription')
 	
 	asd=emailto
-	print('----------------------')
+	
 	print(asd)
 	form_full_name = form.cleaned_data.get('full_name')
 	sub = form.cleaned_data.get('subject')
@@ -51,14 +66,15 @@ def SubscriptionView(request):
 	
 	contact_message = " %s "%(
             
-            form_Class 
+            form_Class
 			
 			)			
 	send_mail(subject,
 	        contact_message, 
 			from_email,			
 			asd, 
-			fail_silently=False)
+			fail_silently=False
+			,html_message=html_message)
 	return redirect('Function')		
     else:
         form = ContactForm()
@@ -67,32 +83,7 @@ def SubscriptionView(request):
 	
 class ServerForm(forms.ModelForm):
     class Meta:
-	MY_CHOICES2 = (
-    ('01:00 am', '01:00 am'),
-	('02:00 am', '02:00 am'),
-	('03:00 am', '03:00 am'),
-    ('04:15 am', '04:00 am'),
-	('05:00 am', '05:00 am'),
-	('06:00 am', '06:00 am'),
-	('07:00 am', '07:00 am'),
-	('08:00 am', '08:00 am'),
-	('09:00 am', '09:00 am'),
-    ('10:00 am', '10:00 am'),
-	('11:00 am', '11:00 am'),
-	('12:00 am', '12:00 am'),
-    ('01:00 pm', '01:00 pm'),
-	('02:00 pm', '02:00 pm'),
-	('03:00 pm', '03:00 pm'),
-    ('04:00 pm', '04:00 pm'),
-	('05:00 pm', '05:00 pm'),
-	('06:00 pm', '06:00 pm'),
-	('07:00 pm', '07:00 pm'),
-	('08:00 pm', '08:00 pm'),
-	('09:00 pm', '09:00 pm'),
-    ('10:00 pm', '10:00 pm'),
-	('11:00 pm', '11:00 pm'),
-	('12:00 pm', '12:00 pm'),
-)
+
         model = Createclass
         
         widgets = {
@@ -100,13 +91,13 @@ class ServerForm(forms.ModelForm):
 		
             'Title': forms.TextInput(attrs={'class': 'form-control','placeholder':'Enter Title'})
 			,'Subject': forms.TextInput(attrs={'class': 'form-control','placeholder':'Enter Subject'})
-			,'date': forms.TextInput(attrs={'class': 'form-control','placeholder':'MM/DD/YYYY'})
-			,'From': forms.Select(attrs={'class':'form-control'})
-			,'to': forms.Select(attrs={'class':'form-control'})
+			,'date': forms.DateTimeInput(attrs={'class': 'datetime-input'})
+			,'From': forms.TextInput(attrs={'class':'form-control'})
+			,'to': forms.TextInput(attrs={'class':'form-control'})
 			,'instructor': forms.TextInput(attrs={'class': 'form-control','placeholder':'Enter instructor'})
 			,'description': forms.TextInput(attrs={'class': 'form-control','placeholder':'Enter description'})
         }
-	fields = ['Title','Subject','date','From','to','instructor','description']
+	fields = ['Title','Subject','date','From','to','instructor','description','Image']
 		
 
 	
@@ -114,6 +105,7 @@ def server_create(request, template_name='server_form.html'):
     form = ServerForm(request.POST or None)
     if form.is_valid():
 		Createclass =form.save(commit=False)
+		Createclass.Image=request.FILES['Image']
 		Createclass.user=request.user
 		Createclass.save()
 		return redirect('Function')
@@ -171,8 +163,9 @@ def server_create12(request, template_name='forn.html'):
 		
 	return render(request, template_name)
 	
+
 def Function(request, template_name='rest.html'):
-	chat = Createclass.objects.all()
+	chat = Createclass.objects.order_by('-id') 
 	users = User.objects.all()
 	data['object_list'] = chat
 	return render(request, template_name,{'chat': chat,'users': users})	
@@ -210,8 +203,12 @@ def Home(request,pk,template_name='home.html'):
     abc[''] = pk
 	
 	
+    users = User.objects.all()
+    time=datetime.now()
+  
+	
     c = Chat.objects.all()
-    return render(request, template_name, {'home': 'active', 'chat': c, 'object':createclass})
+    return render(request, template_name, {'time':time,'home': 'active', 'chat': c, 'object':createclass,'users': users})
 
 	
 def Post(request):
@@ -236,10 +233,11 @@ def Messages1(request):
     return render(request, 'messages.html', {'chat': c})
 	
 def Messages(request):
+    
     c = Chat.objects.filter(name=abc)
 	#filter(created__date=date.today())
     return render(request, 'messages.html', {'chat': c})
-   #.filter(created=['2017-07-26', '2017-07-27'])
+  
 def server_delete(request, pk, template_name='server_confirm_delete.html'):
     createclass = get_object_or_404(Createclass, pk=pk)    
     if request.method=='POST':

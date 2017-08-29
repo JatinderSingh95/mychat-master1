@@ -24,7 +24,7 @@ html>
 
 <form method="post" class="form-horizontal" >{% csrf_token %}
 
-   
+   <div class="form-group"><a href="{% url 'social:begin' 'google-oauth2' %}">Google+</a></div>
 {% load widget_tweaks %}
 {{form.errors }}
    <div class="form-group"><label  class="col-md-3">username:</label><div class="col-md-9"> {{ form.username|add_class:"form-control"|attr:"placeholder:Enter Username"}}{{ form.username.errors }}</div></div>

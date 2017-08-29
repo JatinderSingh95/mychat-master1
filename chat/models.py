@@ -26,7 +26,7 @@ MY_CHOICES2 = (
 	('07:00 pm', '07:00 pm'),
 	('08:00 pm', '08:00 pm'),
 	('09:00 pm', '09:00 pm'),
-    ('10:15 pm', '10:00 pm'),
+    ('10:00 pm', '10:00 pm'),
 	('11:00 pm', '11:00 pm'),
 	('12:00 pm', '12:00 pm'),
 	
@@ -38,7 +38,7 @@ MY_CHOICES3 = (
 	('01:00 am', '01:00 am'),
 	('02:00 am', '02:00 am'),
 	('03:00 am', '03:00 am'),
-    ('04:15 am', '04:00 am'),
+    ('04:00 am', '04:00 am'),
 	('05:00 am', '05:00 am'),
 	('06:00 am', '06:00 am'),
 	('07:00 am', '07:00 am'),
@@ -56,7 +56,7 @@ MY_CHOICES3 = (
 	('07:00 pm', '07:00 pm'),
 	('08:00 pm', '08:00 pm'),
 	('09:00 pm', '09:00 pm'),
-    ('10:15 pm', '10:00 pm'),
+    ('10:00 pm', '10:00 pm'),
 	('11:00 pm', '11:00 pm'),
 	('12:00 pm', '12:00 pm'),
     
@@ -96,11 +96,13 @@ class Createclass(models.Model):
     user = models.ForeignKey(User)
     Title = models.CharField(max_length=200, default='')
     Subject = models.CharField(max_length=200, default='')
-    date = models.DateField(max_length=200, default='') 
-    From = models.CharField(max_length=60,choices=MY_CHOICES2, default='')
-    to = models.CharField(max_length=60,choices=MY_CHOICES3, default='')
+    date = models.CharField(max_length=200, default='') 
+    From = models.CharField(max_length=60,default='')
+    to = models.CharField(max_length=60,default='')
     instructor = models.CharField(max_length=60, default='')
     description = models.TextField(default='')
+    Image = models.ImageField(upload_to='profile_image', blank=True)
+	
    
 	
 

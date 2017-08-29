@@ -37,7 +37,7 @@ urlpatterns = [
 	url(r'^create/$', views.server_create, name='server_create'),
 	url(r'^edit/(?P<pk>\d+)$', views.server_update, name='user_edit'),
 	#url(r'^Ainvites/$', views.class1, name='class1'),
-	
+	url('^api/v1/', include('social_django.urls', namespace='social')),
 	#url(r'^chat/$', views.Home, name='home'),
 	url(r'^chat1/$', views.Messages, name='home'),
     url(r'^', include('chat.urls')),

@@ -4,75 +4,7 @@ from django.contrib.auth.models import User
 from models import Profile
 from django.forms import ModelForm
 from chat.models import Createclass
-MY_CHOICES2 = (
-    ('01:00 am', '01:00 am'),
-	('02:00 am', '02:00 am'),
-	('03:00 am', '03:00 am'),
-    ('04:15 am', '04:00 am'),
-	('05:00 am', '05:00 am'),
-	('06:00 am', '06:00 am'),
-	('07:00 am', '07:00 am'),
-	('08:00 am', '08:00 am'),
-	('09:00 am', '09:00 am'),
-    ('10:00 am', '10:00 am'),
-	('11:00 am', '11:00 am'),
-	('12:00 am', '12:00 am'),
-    ('01:00 pm', '01:00 pm'),
-	('02:00 pm', '02:00 pm'),
-	('03:00 pm', '03:00 pm'),
-    ('04:00 pm', '04:00 pm'),
-	('05:00 pm', '05:00 pm'),
-	('06:00 pm', '06:00 pm'),
-	('07:00 pm', '07:00 pm'),
-	('08:00 pm', '08:00 pm'),
-	('09:00 pm', '09:00 pm'),
-    ('10:15 pm', '10:00 pm'),
-	('11:00 pm', '11:00 pm'),
-	('12:00 pm', '12:00 pm'),
-	
-    
-    
-)
-MY_CHOICES3 = (
-    
-	('01:00 am', '01:00 am'),
-	('02:00 am', '02:00 am'),
-	('03:00 am', '03:00 am'),
-    ('04:15 am', '04:00 am'),
-	('05:00 am', '05:00 am'),
-	('06:00 am', '06:00 am'),
-	('07:00 am', '07:00 am'),
-	('08:00 am', '08:00 am'),
-	('09:00 am', '09:00 am'),
-    ('10:00 am', '10:00 am'),
-	('11:00 am', '11:00 am'),
-	('12:00 am', '12:00 am'),
-    ('01:00 pm', '01:00 pm'),
-	('02:00 pm', '02:00 pm'),
-	('03:00 pm', '03:00 pm'),
-    ('04:00 pm', '04:00 pm'),
-	('05:00 pm', '05:00 pm'),
-	('06:00 pm', '06:00 pm'),
-	('07:00 pm', '07:00 pm'),
-	('08:00 pm', '08:00 pm'),
-	('09:00 pm', '09:00 pm'),
-    ('10:15 pm', '10:00 pm'),
-	('11:00 pm', '11:00 pm'),
-	('12:00 pm', '12:00 pm'),
-    
-    
-)
 
-	
-OPTIONS_TUPPLE = (
-   
-	('gdsa006@gmail.com', 'gdsa006@gmail.com'),
-	('taajinder95@gmail.com', 'taajinder95@gmail.com'),
-	('gagandeepsinghahuja11@gmail.com', 'gagandeepsinghahuja11@gmail.com'),
-    
-    
-    
-)
 class SignUpForm(UserCreationForm):
     utype = forms.CharField(max_length=30, required=False,initial='3',widget=forms.HiddenInput(),label='')
     
@@ -80,12 +12,13 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         widgets = {
-		    'first_name': forms.TextInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Name'})
+		    'first_name': forms.TextInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter First Name'})
+			,'last_name': forms.TextInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Last Name'})
 	        ,'username': forms.TextInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Username'})
             ,'password1': forms.PasswordInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Password1'})
             ,'password2': forms.PasswordInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Password2'})
 		    ,'email': forms.TextInput(attrs={'required':'required','class': 'form-control','placeholder':'Enter Email'})}
-        fields = ('username','first_name','password1','password2','email')
+        fields = ('username','first_name','last_name','password1','password2','email')
 			
 		
 #class Profile(forms.ModelForm):

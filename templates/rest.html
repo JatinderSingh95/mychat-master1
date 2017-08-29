@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
  <title>Chat app</title>
  {% load staticfiles %}
  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
@@ -73,8 +75,9 @@
       </div>
       <div class="modal-body">
 	  <select onchange="location=this.value">
-	    <option>
-		<b>Select User</b>
+	    <option disabled="disabled" selected="true">
+		
+		Select User
 		</option>    
 			{% for obj in users %}
 			
@@ -166,7 +169,7 @@
 <div class="clearfix"></div>
 		<br>
 	<br>
-{% if user.profile.utype == '3'%}
+{% if user.profile.utype == '3' or user.profile.utype == '' %}
 <div class="col-md-12">
 <div class="wrap-functions">
 <div class="col-md-4 col-xs-12 text-center">
@@ -193,7 +196,7 @@
 
 
 <div class="block-tile">
-<a class="del" href='{% url "server_delete" obj.id %}'><i class="fa fa-remove"></i></a>
+
 
 <a href='{% url "home" obj.id %}'class="link1">
 
@@ -256,7 +259,7 @@
 
 
 <div class="block-tile">
-<a class="del" href='{% url "server_delete" obj.id %}'><i class="fa fa-remove"></i></a>
+
 
 <a href='{% url "home" obj.id %}'class="link1">
 

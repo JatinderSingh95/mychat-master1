@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
  <title>chat</title>
  {% load staticfiles %}
  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
@@ -11,7 +13,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 </head>
-<body>
+<body style="background:url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/XLW01-d/abstract-geometric-triangle-background-in-endless-loop-loopable-polygons-floating-in-organic-way-blue-version_vj0l8g1ne__F0000.png')">
 <nav class="navbar navbar-default navbar-fixed-top" >
 
   <div class="container">
@@ -41,8 +43,8 @@
 	 <li><a href="/functions">Functions <i class="fa fa-user-plus"></i></a></li>
        {% else %}
 	 
-	   <li><a href="/register">Signup <i class="fa fa-user-plus"></i></a></li>
-       <li><a href="{% url 'login' %}">Signin <i class="fa fa-user"></i></a></li>
+	   <li><a href="/register">Signup</a></li>
+       <li><a href="{% url 'login' %}">Signin</a></li>
        {% endif %}
 	   
 	   </ul>
@@ -60,25 +62,16 @@ Steps:
 1. create the clouds
 2. Animate them to move across the screen
 3. Stylize the clouds(can be done as step #2 also)
--->
-<div id="clouds">
-
-<div class= "container splash" >
+--><div class= "container splash" >
 <div class= "row">
+
+
 <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3 text-center">
  <h1>Chat app </h1>
 </div>
-</div>
-</div>
 
 
- <div class="cloud x1"></div>
- <!-- Time for multiple clouds to dance around -->
- <div class="cloud x2"></div>
- <div class="cloud x3"></div>
- <div class="cloud x4"></div>
- <div class="cloud x5"></div>
-</div>
+
 <!-- Thats the markup! -->
 <!-- That looks cool. We are done!! -->
 
@@ -86,7 +79,8 @@ Steps:
 
 
 
-
+</div>
+</div>
 
 
 

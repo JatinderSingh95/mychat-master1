@@ -4,12 +4,11 @@ $('#chat-form').on('submit', function(event){
     $.ajax({
         url : '/post/',
         type : 'POST',
-        data : { msgbox : $('#chat-msg').val(), imagebox : $('#chat-file').val()},
+        data : { msgbox : $('#chat-msg').val()},
 
         success : function(json){
             $('#chat-msg').val('');
-			$('#chat-file').val('');
-            $('#msg-list').append('<li class="text-right list-group-item">' + json.msg + json.img + '</li>');
+            $('#msg-list').append('<li class="text-right list-group-item">' + json.msg + '</li>');
             var chatlist = document.getElementById('msg-list-div');
             chatlist.scrollTop = chatlist.scrollHeight;
         }
@@ -21,7 +20,7 @@ function getMessages(){
         $.get('/messages/', function(messages){
             $('#msg-list').html(messages);
             var chatlist = document.getElementById('msg-list-div');
-            chatlist.scrollTop = chatlist.scrollHeight;
+           chatlist.scrollTop = chatlist.scrollHeight;
         });
     }
     scrolling = false;

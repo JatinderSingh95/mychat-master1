@@ -23,10 +23,11 @@
  
 
 <form method="post" class="form-horizontal" >{% csrf_token %}
-
+<div class="form-group"><a href="{% url 'social:begin' 'google-oauth2' %}">Google+</a></div>
    
 {% load widget_tweaks %}
- <div class="form-group"><label class="col-md-3">Name:</label><div class="col-md-9">{{ form.first_name}}{{ form.first_name.errors }}</div></div>
+ <div class="form-group"><label class="col-md-3">First Name:</label><div class="col-md-9">{{ form.first_name}}{{ form.first_name.errors }}</div></div>
+ <div class="form-group"><label class="col-md-3">Last Name:</label><div class="col-md-9">{{ form.last_name}}{{ form.last_name.errors }}</div></div>
    <div class="form-group"><label  class="col-md-3">username:</label><div class="col-md-9"> {{ form.username}}{{ form.username.errors }}</div></div>
    <div class="form-group"><label  class="col-md-3"></label><div class="col-md-9"> {{ form.utype}}</div></div>
    <div class="form-group"><label class="col-md-3">email:</label><div class="col-md-9">{{ form.email}}{{ form.email.errors }}</div></div>

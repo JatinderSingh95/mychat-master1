@@ -6,7 +6,11 @@
             <div class="circle">
                 <p>{{ obj.user|make_list|first}}</p>
             </div>
-        </div><div style="float:right; width:100%;">{{ obj.message }}</div><br><br>{{obj.created}}</li>
+        </div>
+		<h4>  &nbsp;{{ obj.user}}</h4>
+		
+		
+		<div style="float:left; width:100%;text-align:justify"><div style="width:auto;float:right;text-align:justify">{{ obj.message }}</div></div><br>{{obj.created}}</li>
     {% else %}
         <li class="text-left list-group-item">
 		<div class="block">
@@ -16,7 +20,7 @@
         </div>
 
 		
-		<h4>  &nbsp;{{ obj.user}}</h4>{{obj.message}}{{ obj.Image}} <br>{{ obj.created }}</li>
+		<h4>  &nbsp;{{ obj.user}}</h4><div style="float:left; width:100%;text-align:left"><div style="width:auto;float:left;">{{obj.message}}</div></div> <br>{{ obj.created }}</li>
     {% endif %}
 {% empty %}
     <li class="text-right list-group-item">No messages yet!</li>
